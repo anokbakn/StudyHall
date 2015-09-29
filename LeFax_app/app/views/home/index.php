@@ -43,12 +43,13 @@ if (isset($_SESSION['username'])) {
                   </li>
                 </ul>
                 <s></s>
-                <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"></span>
+                
+                <div class="input-group" style="float: right">
+                        <!-- <span class="input-group-addon" id="sizing-addon1"></span> -->
                         <!--<input type="text" class="form-control" placeholder="Search" aria-describedby="sizing-addon1"> -->
-                        <form action="../home/indexLogin" method="POST">
+                        <form action="../home/indexLogin" method="POST" >
                             <br>
-                            <table>
+                            <table style="">
                                 <tr>
                                     <td><input type="text" name="username" placeholder="user name"></td>
                                     <td><input type="password" name="password" placeholder="password"></td>
@@ -68,7 +69,10 @@ if (isset($_SESSION['username'])) {
 
 
             <div class="page-header">
-              <h1>Need Some Help Studying?</h1>
+                <h1 style="clear: right">Need Some Help Studying?
+               <!--<span class="input-group-addon" id="sizing-addon1"></span> -->
+                <input style="width: 420px; float: right" type="text" class="form-control" placeholder="Search" aria-describedby="sizing-addon1">
+                </h1>
             </div>
             <!-- sidebar -->
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
