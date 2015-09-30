@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Armand Nokbak
+ */
+
 
 class RegisteredUser {
 

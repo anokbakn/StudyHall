@@ -2,8 +2,11 @@
 
 
 <?php
-//Hello <?=$data['name']
-//si la personne est deja connectee
+
+/**
+ * @author Armand Nokbak
+ */
+
 if (isset($_SESSION['username'])) {
     // ajouter le header
     require_once 'header.php';
