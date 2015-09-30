@@ -14,6 +14,13 @@ class Home extends Controller {
         // creating a view object
         $this->view('home/index');
     }
+    
+    function logout(){
+        if(isset($_SESSION)){
+            unset($_SESSION);
+        }
+        $this->index();
+    }
 
     //cette fonction te renvoie a la page acceuil apres avoir verifier ton enregistrement
     function indexLogin() {
@@ -26,6 +33,8 @@ class Home extends Controller {
             $login = $this->model('login','LoginModule');
             $loginMessage = $login->logMeIn($_POST['username'], $_POST['password']);
             echo $loginMessage;
+        } else {
+            $this->showRegistration();
         }
 
         $this->view('home/index');

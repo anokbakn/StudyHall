@@ -128,7 +128,7 @@
                                 <table style="">
                                     <tr>
                                         <td><?php echo 'Welcome ' . $_SESSION['username'] . ' ! '; ?></td>
-                                        <td><?php echo '<a href="#">Logout</a>'; ?></td>
+                                        <td><?php echo '<a href="../home/logout">Logout</a>'; ?></td>
                                     </tr>
                                 </table>
 
