@@ -1,5 +1,6 @@
 CREATE TABLE Registered_User(
 primary key username varchar(30) not null,
+password char(32) not null,
 email varchar(50) not null,
 first_name char(30) not null,
 last_name char(30) not null,
