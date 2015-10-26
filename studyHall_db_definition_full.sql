@@ -1,5 +1,5 @@
 CREATE TABLE Registered_User(
-primary key username varchar(30) not null,
+username varchar(30) primary key,
 password char(32) not null,
 email varchar(50) not null,
 first_name char(30) not null,
@@ -13,46 +13,57 @@ sign_up date
 );
 
 CREATE TABLE Subject(
-primary key subject varchar(30) not null,
+subject varchar(30) primary key,
 number_of_classes int not null
 );
 
 CREATE TABLE Classes(
-primary key class_name varchar(30) not null,
-foreign key subject not null
+class_name varchar(30) primary key,
+subject varchar(30) not null,
+foreign key (subject) references Subject(subject)
 );
 
 CREATE TABLE Document(
-primary key doc_id int not null,
-foreign key username varchar(30) not null,
-foreign key class_name varchar(30) not null,
-foreign key subject varchar(30) not null,
+doc_id int primary key,
+username varchar(30) not null,
+class_name varchar(30) not null,
+subject varchar(30) not null,
 doc_name varchar(50) not null,
 doc_type varchar(8) not null,
 upvotes int not null,
 downvotes int not null,
-blocked bool
+blocked bool,
+foreign key (username) references Registered_User(username) on delete cascade,
+foreign key (class_name) references Classes(class_name) on delete cascade,
+foreign key (subject) references Subject(subject) on delete cascade
 );
+
 
 CREATE TABLE Forum_Topic(
-primary key topic_id varchar(32) not null,
-foreign key username varchar(30) not null,
+topic_id varchar(32) not null primary key,
+username varchar(30) not null,
 topic_name varchar(32) not null,
 topic_description varchar(250) not null,
-blocked bool
+blocked bool,
+foreign key (username) references Registered_User(username) on delete cascade
 );
 
+
 CREATE TABLE Forum_Post(
-primary key post_id int not null,
-foreign key topic_id varchar(32) not null,
-foreign key username varchar(30) not null,
-blocked bool
+post_id int not null primary key,
+topic_id varchar(32) not null,
+username varchar(30) not null,
+blocked bool,
+foreign key (username) references Registered_User(username) on delete cascade,
+foreign key (topic_id) references Forum_Topic(topic_id) on delete cascade
 );
 
 CREATE TABLE Comment(
-primary key comment_id int not null,
-foreign key document_id int not null,
-foreign key username varchar(30) not null,
-blocked bool
+comment_id int not null primary key,
+document_id int not null,
+username varchar(30) not null,
+blocked bool,
+foreign key (username) references Registered_User(username) on delete cascade,
+foreign key (document_id) references Document(doc_id) on delete cascade
 );
 
