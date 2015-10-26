@@ -1,7 +1,7 @@
 
 <?php
         // put your code here
-require './db_functions.php';
+require '../dbModels/db_functions.php';
 
 class Document{
     //variable declaration

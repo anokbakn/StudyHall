@@ -1,7 +1,7 @@
 <?php
 
 
-require './db_functions.php';
+require '../dbModels/db_functions.php';
 /**
  * Description of RegisteredUser
  *
