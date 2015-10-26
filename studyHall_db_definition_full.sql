@@ -13,8 +13,7 @@ sign_up date
 );
 
 CREATE TABLE Subject(
-subject varchar(30) primary key,
-number_of_classes int not null
+subject varchar(30) primary key
 );
 
 CREATE TABLE Classes(
@@ -30,6 +29,7 @@ class_name varchar(30) not null,
 subject varchar(30) not null,
 doc_name varchar(50) not null,
 doc_type varchar(8) not null,
+path_to_doc varchar(50) not null,
 upvotes int not null,
 downvotes int not null,
 blocked bool,
