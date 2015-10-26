@@ -29,7 +29,7 @@ class Document{
         else {
             $this->new_doc = false;
             //conn to database
-            $db_vals = db_functions.db_get("Document", "*", "doc_id", sprintf("'%s'", $doc_id));
+            $db_vals = db_functions.db_get("Document", "*", "doc_id", sprintf("'%d'", $doc_id));
             $this->username = $db_vals['username'];
             $this->class_name = $db_vals['class_name'];
             $this->subject = $db_vals['subject'];
@@ -66,13 +66,13 @@ class Document{
     
     public function rate($updown){
         //downvotes
-        if($updown = 0){
+        if($updown == 0){
             $new_val = $this->downvotes + 1;
             db_functions.db_set("Document", sprintf("downvotes='%d'", $new_val), "doc_id", $this->doc_id);
             $this->downvotes = $new_val;    
         }
         //upvotes
-        if($updown = 1){
+        if($updown == 1){
             $new_val = $this->upvotes + 1;
             db_functions.db_set("Document", sprintf("upvotes='%d'", $new_val), "doc_id", $this->doc_id);
             $this->upvotes = $new_val;

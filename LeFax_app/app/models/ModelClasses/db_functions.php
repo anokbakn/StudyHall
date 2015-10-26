@@ -55,9 +55,9 @@ class db_functions{
     
     function db_conn(){
         $host = "pluto.cse.msstate.edu";
-        $user = "";
-        $database = "";
-        $passd = "";
+        $user = "dcsp01";
+        $database = "dcsp01";
+        $passd = "studyhall123";
         
         //create connection to database
         $db_conn = new mysqli($host, $user, $passwd, $database);

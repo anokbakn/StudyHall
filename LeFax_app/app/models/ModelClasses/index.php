@@ -12,6 +12,11 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
+        require('./RegisteredUser.php');
+        
+        $user = new RegisteredUser();
+                
+        $user->register('kmassey', 'abc123', 'km1035@msstate.edu', 'Kristen', 'Massey', 'MS', 'Jackson');
         ?>
     </body>
 </html>
