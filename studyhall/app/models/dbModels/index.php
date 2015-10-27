@@ -12,12 +12,48 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
-        function __autoload($class_name){
-            include $class_name . '.php';
+        foreach(glob("./*.php") as $filename){
+            include_once $filename;
         }
         
-        $user = new RegisteredUser();        
-        $user->register('kmassey', 'abc123', 'km1035@msstate.edu', 'Kristen', 'Massey', 'MS', 'Jackson');
+        //RegisteredUser "unit tests"
+        
+        //get existing users
+        $user = new RegisteredUser('armand');  
+        
+        //get existing user data
+        $email = $user->getEmail();
+        printf("Armand's email is %s", $email);
+        
+        //create new user
+        $user2 = new RegisteredUser();
+        
+        //register new user
+        $user2->register('armand2', 'abc123', 'km1035@msstate.edu', 'Kristen', 'Massey', 'MS', 'Jackson');
+        
+        //login successful (print true)
+        $loginSuccess = $user2->login('armand2', 'abc123');
+        
+        //login unsuccessful (print false)
+        printf("User %s logged in successfully: %s", 'armand2', $loginSuccess);
+        $loginSuccess = $user2->login('armand2', 'abc12');
+        
+        //delete user
+        $user->deleteUser();
+        
+        //block user
+        $user2->block();
+        $isBlocked = $user->isBlocked();
+        printf("User is blocked: %s", $isBlocked);
+        
+        //unblock user
+        $user2->unblock();
+        $isBlocked = $user->isBlocked();
+        printf("User is blocked: %s", $isBlocked);
+        
+        
+        unset($user);
+        unset($user2);
         ?>
     </body>
 </html>

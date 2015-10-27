@@ -1,7 +1,7 @@
 
 <?php
         // put your code here
-require './db_functions.php';
+include_once "./db_functions.php";
 
 class Document{
     //variable declaration
@@ -29,7 +29,7 @@ class Document{
         else {
             $this->new_doc = false;
             //conn to database
-            $db_vals = db_functions.db_get("Document", "*", "doc_id", sprintf("'%d'", $doc_id));
+            $db_vals = db_get("Document", "*", "doc_id", sprintf("'%d'", $doc_id));
             $this->doc_id = $doc_id;
             $this->username = $db_vals['username'];
             $this->class_name = $db_vals['class_name'];
@@ -43,9 +43,8 @@ class Document{
             return;
         }
     }
-    
-    function __autoload($class_name){
-        include $class_name . '.php';
+    function __destruct(){
+        
     }
     
     public function createDocument($username, 
@@ -55,9 +54,9 @@ class Document{
                         $doc_type,
                         $path_to_doc){
         //get random doc_id
-        $doc_id = db_functions.get_rand_num();
-        while(db_functions.value_exists("Document", "doc_id", $doc_id)){
-            $doc_id = db_functions.get_rand_num();
+        $doc_id = get_rand_num();
+        while(value_exists("Document", "doc_id", $doc_id)){
+            $doc_id = get_rand_num();
         }
         db_add("Document", sprintf("'%d', '%s', '%s', '%s', '%s', '%s', '%s', '0', '0', 'false'", $doc_id, $username, $class_name, $subject, $doc_name, $doc_type, $path_to_doc));
         //check for error, return value to user based on if error or not
@@ -73,13 +72,13 @@ class Document{
         //downvotes
         if($updown == 0){
             $new_val = $this->downvotes + 1;
-            db_functions.db_set("Document", sprintf("downvotes='%d'", $new_val), "doc_id", $this->doc_id);
+            db_set("Document", sprintf("downvotes='%d'", $new_val), "doc_id", $this->doc_id);
             $this->downvotes = $new_val;    
         }
         //upvotes
         if($updown == 1){
             $new_val = $this->upvotes + 1;
-            db_functions.db_set("Document", sprintf("upvotes='%d'", $new_val), "doc_id", $this->doc_id);
+            db_set("Document", sprintf("upvotes='%d'", $new_val), "doc_id", $this->doc_id);
             $this->upvotes = $new_val;
         }
     }
@@ -87,6 +86,11 @@ class Document{
     public function block(){
         db_set("Document", "blocked='true'", "doc_id", $this->doc_id);
         $this->blocked = true;
+    }
+    
+    public function unblock(){
+        db_set("Document", "blocked='false'", "doc_id", $this->doc_id);
+        $this->blocked = false;
     }
     
     public function isBlocked(){

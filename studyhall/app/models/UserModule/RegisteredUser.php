@@ -1,7 +1,7 @@
 <?php
 
 
-require './db_functions.php';
+include_once "./db_functions.php";
 /**
  * Description of RegisteredUser
  *
@@ -32,7 +32,7 @@ class RegisteredUser {
         else {
             $this->new_user = false;
             //conn to database
-            $db_vals = db_functions.db_get("Registered_User", "*", "username", sprintf("'%s'", $username));
+            $db_vals = db_get("Registered_User", "*", "username", sprintf("'%s'", $username));
             $this->username = $username;
             $this->password = $db_vals['password'];
             $this->email = $db_vals['email'];
@@ -59,11 +59,11 @@ class RegisteredUser {
                             $last_name,
                             $state,
                             $city){
-        if(db_functions.value_exists("Registered_User", "username", $username)){
+        if(value_exists("Registered_User", "username", $username)){
             return false;
         }
         else{
-            db_add("Registered_User", sprintf("'%s','%s','%s', '%s', '%s', false, null, '%s', '%s', NOW()"));
+            db_add("Registered_User", sprintf("'%s','%s','%s', '%s', '%s', false, null, '%s', '%s', NOW()", $username, $password, $email, $first_name, $last_name, $state, $city));
         }
         
     }
@@ -75,8 +75,8 @@ class RegisteredUser {
     //password input should already be in MD5 form
     //returns true if login success, false if login failed
     public function login($username, $password){
-        if(db_functions.value_exists("Registered_User", "username", $username)){
-            $db_val = db_functions.db_get("Registered_User", "password", "username", $username);
+        if(value_exists("Registered_User", "username", $username)){
+            $db_val = db_get("Registered_User", "password", "username", $username);
       
             if($password == $db_val['password']){
                 return true;    
@@ -91,11 +91,11 @@ class RegisteredUser {
     }
     
     public function block(){
-        db_functions.db_set("Registered_User", "blocked_date=NOW()", "username", $this->username);
+        db_set("Registered_User", "blocked_date=NOW()", "username", $this->username);
     }
     
     public function unblock(){
-        db_functions.db_set("Registered_User", "blocked_date=NULL", "username", $this->username);
+        db_set("Registered_User", "blocked_date=NULL", "username", $this->username);
     }
     
     public function isBlocked(){
