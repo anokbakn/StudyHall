@@ -1,7 +1,7 @@
 
 <?php
         // put your code here
-require '../dbModels/db_functions.php';
+require './db_functions.php';
 
 class Document{
     //variable declaration
@@ -19,7 +19,7 @@ class Document{
     private $new_doc;
     
     //constructor
-    function _construct($doc_id = 0){
+    function __construct($doc_id = 0){
         //check if doc_id is 0
         if($doc_id == 0){ 
             $this->new_doc = true;
@@ -41,6 +41,10 @@ class Document{
             $this->blocked = $db_vals['blocked'];
             return;
         }
+    }
+    
+    function __autoload($class_name){
+        include $class_name . '.php';
     }
     
     public function createDocument($username, 
@@ -88,6 +92,35 @@ class Document{
         $db_val = db_get("Document", "blocked", "doc_id", $this->doc_id);
         $blocked_bool = $db_val["blocked"];
         return $blocked_bool;
+    }
+    
+    public function getDocID(){
+        return $this->doc_id;
+    }
+    
+    public function getUsername(){
+        return $this->username;
+    }
+    public function getClassName(){
+        return $this->class_name;
+    }
+    public function getSubject(){
+        return $this->subject;
+    }
+    public function getDocName(){
+        return $this->doc_name;
+    }
+    public function getDocType(){
+        return $this->doc_type;
+    }
+    public function getPathToDoc(){
+        return $this->path_to_doc;
+    }
+    public function getUpvotes(){
+        return $this->upvotes;
+    }
+    public function getDownvotes(){
+        return $this->downvotes;
     }
 }
 ?>

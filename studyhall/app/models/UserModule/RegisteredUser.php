@@ -1,7 +1,7 @@
 <?php
 
 
-require '../dbModels/db_functions.php';
+require './db_functions.php';
 /**
  * Description of RegisteredUser
  *
@@ -21,7 +21,6 @@ class RegisteredUser {
     
     private $new_user;
     
-    //constructor
     //constructor
     function __construct($username = NULL){
         //check if doc_id is 0
@@ -47,6 +46,10 @@ class RegisteredUser {
         }
     }
     
+    function __autoload($class_name){
+        include $class_name . '.php';
+    }
+    
     //password should already be MD5, username should already be checked
     public function register($username,
                             $password,
@@ -62,6 +65,10 @@ class RegisteredUser {
             db_add("Registered_User", sprintf("'%s','%s','%s', '%s', '%s', false, null, '%s', '%s', NOW()"));
         }
         
+    }
+    
+    public function deleteUser(){
+        db_delete("Registered_User", "username", $this->username);
     }
     
     //password input should already be in MD5 form

@@ -12,10 +12,11 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
-        require('./RegisteredUser.php');
+        function __autoload($class_name){
+            include $class_name . '.php';
+        }
         
-        $user = new RegisteredUser();
-                
+        $user = new RegisteredUser();        
         $user->register('kmassey', 'abc123', 'km1035@msstate.edu', 'Kristen', 'Massey', 'MS', 'Jackson');
         ?>
     </body>
