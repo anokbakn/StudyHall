@@ -33,6 +33,7 @@ class RegisteredUser {
             $this->new_user = false;
             //conn to database
             $db_vals = db_functions.db_get("Registered_User", "*", "username", sprintf("'%s'", $username));
+            $this->username = $username;
             $this->password = $db_vals['password'];
             $this->email = $db_vals['email'];
             $this->first_name = $db_vals['first_name'];

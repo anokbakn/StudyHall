@@ -30,6 +30,7 @@ class Document{
             $this->new_doc = false;
             //conn to database
             $db_vals = db_functions.db_get("Document", "*", "doc_id", sprintf("'%d'", $doc_id));
+            $this->doc_id = $doc_id;
             $this->username = $db_vals['username'];
             $this->class_name = $db_vals['class_name'];
             $this->subject = $db_vals['subject'];

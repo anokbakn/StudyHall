@@ -36,6 +36,13 @@ class db_functions{
         $db_conn->query($del_data);
     }
     
+    function db_get_ordered($table, $items, $order_column){
+        $db_conn = db_conn();
+        $get_data = sprintf("SELECT %s FROM %s ORDER BY %s;", $items, $table, $primary_key, $key_value, $order_column);
+        $data = $db_conn->query($get_data);
+        return $data;   //can return numberous values
+    }
+    
     function value_exists($table, $key, $value){
         $db_conn = db_conn();
         $query_string = sprintf("SELECT * from %s WHERE %s='%s';", $table, $key, $value);
