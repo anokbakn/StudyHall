@@ -5,10 +5,10 @@ email varchar(50) not null,
 first_name char(30) not null,
 last_name char(30) not null,
 admin bool not null,
-blocked_date date,
+blocked_date timestamp,
 state char(2),
 city char(30),
-sign_up date
+sign_up timestamp
 );
 
 CREATE TABLE Subject(
