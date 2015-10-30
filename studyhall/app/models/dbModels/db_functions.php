@@ -9,17 +9,23 @@
  */
     function db_get($table, $items, $primary_key, $key_value){
         $db_conn = db_conn();
-        if($items == '*'){
-            $get_data = sprintf("SELECT * FROM %s WHERE %s='%s';", $items, $table, $primary_key, $key_value);
+        if(strcmp($items, "*") == 0){
+            $get_data = sprintf("SELECT * FROM `%s` WHERE %s='%s';", $table, $primary_key, $key_value);//, $primary_key, $key_value);  
         }
         else{
-          $get_data = sprintf("SELECT '%s' FROM %s WHERE %s='%s';", $items, $table, $primary_key, $key_value);      
+          $get_data = sprintf("SELECT %s FROM `%s` WHERE %s='%s';", $items, $table, $primary_key, $key_value);      
         }
         
         $data = $db_conn->query($get_data);
-        $values = $data->fetch_assoc();
-        mysqli_close($db_conn);
-        return $values;
+        if($data->num_rows > 0){
+            $values = $data->fetch_assoc();  
+            mysqli_close($db_conn);
+            return $values;
+        }
+        else{
+            mysqli_close($db_conn);
+            return $false;
+        }
     }
     
     function db_set($table, $items, $primary_key, $key_value){

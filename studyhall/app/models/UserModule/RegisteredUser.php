@@ -32,7 +32,7 @@ class RegisteredUser {
         else {
             $this->new_user = false;
             //conn to database
-            $db_vals = db_get("Registered_User", "*", "username", sprintf("'%s'", $username));
+            $db_vals = db_get("Registered_User", "*", "username", sprintf("%s", $username));
             $this->username = $username;
             $this->password = $db_vals['password'];
             $this->email = $db_vals['email'];
@@ -73,20 +73,21 @@ class RegisteredUser {
     }
     
     //password input should already be in MD5 form
-    //returns true if login success, false if login failed
+    //returns role if login success, null if login failed
     public function login($username, $password){
         if(value_exists("Registered_User", "username", $username)){
             $db_val = db_get("Registered_User", "password", "username", $username);
       
-            if($password == $db_val['password']){
-                return true;    
+            if(strcmp($password, $db_val['password']) == 0){
+                $role = ($this->admin) ? "admin" : "registered_user";
+                return $role;    
             }
             else{
-                return false;
+                return null;
             }
         }
         else{
-            return false;
+            return null;
         }
     }
     
