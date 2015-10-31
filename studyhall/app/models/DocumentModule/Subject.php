@@ -19,7 +19,8 @@ class Subject {
         $this->subject = $subject;    
     }
     public function addSubject($subject){
-        db_add("Subject", sprintf("'s'", $subject));
+        db_add("Subject", sprintf("'%s'", $subject));
+        $this->subject = $subject;
     }
     public function getAZSubjects(){
         $data = db_get_ordered("Subject", "*", "subject");

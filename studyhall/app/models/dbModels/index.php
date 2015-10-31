@@ -78,7 +78,28 @@ and open the template in the editor.
         unset($user2);
         
         
+        ////////////////////////////
+        //Subject UNIT TESTS
+        ////////////////////////////
         
+        //construct subject
+        $subject = new Subject();
+        
+        //add subject
+        $subject->addSubject("Calculus I");
+        
+        //get subject
+        $subject_string = $subject->getSubject();
+        printf("Got Subject: %s\n", $subject_string);
+        
+        //get AZSubjectArray
+        $orderedArray = $subject->getAZSubjects();
+        printf("Ordered Subjects: \n");
+        foreach($orderedArray as $subject_val){
+            printf("%s\n", $subject_val);
+        }
+        
+
         
         
         ////////////////////////////
