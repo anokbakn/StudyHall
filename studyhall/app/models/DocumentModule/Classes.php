@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+include_once "./db_functions.php";
 /**
  * Description of Classes
  *
@@ -19,19 +19,17 @@ class Classes {
     private $new_class;
     
     //constructor
-    function __construct($class_name = ""){
-        if($class_name == ""){ 
+    function __construct($class_name = NULL){
+        if($class_name == NULL){ 
             $this->new_class = true;
-            return;
         }
         //get doc values from database and set
         else {
             $this->new_class = false;
             //conn to database
-            $db_vals = db_functions.db_get("Classes", "*", "class_name", sprintf("'%s'", $class_name));
+            $db_vals = db_get("Classes", "*", "class_name", sprintf("%s", $class_name));
             $this->class_name = $class_name;
             $this->subject = $db_vals['subject'];
-            return;
         }  
         
     }
@@ -41,7 +39,9 @@ class Classes {
             return false;
         }
         else{
-            db_add("Comment", sprintf("'%d', '%s', '%d', '%s', false"));
+            db_add("Classes", sprintf("'%s', '%s'", $class_name, $subject));
+            $this->class_name = $class_name;
+            $this->subject = $subject;
             return true;
         }
     }

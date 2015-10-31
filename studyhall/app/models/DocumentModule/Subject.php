@@ -15,7 +15,7 @@ class Subject {
     //put your code here
     private $subject;
     
-    function __construct($subject = ""){
+    function __construct($subject = NULL){
         $this->subject = $subject;    
     }
     public function addSubject($subject){

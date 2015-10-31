@@ -20,6 +20,9 @@ and open the template in the editor.
         ////////////////////////////////
         //RegisteredUser UNIT TESTS
         ////////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING RegisteredUser UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
         $user = new RegisteredUser();
         
         //register new user
@@ -81,12 +84,15 @@ and open the template in the editor.
         ////////////////////////////
         //Subject UNIT TESTS
         ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING Subject UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
         
         //construct subject
         $subject = new Subject();
         
         //add subject
-        $subject->addSubject("Calculus I");
+        $subject->addSubject("Math");
         
         //get subject
         $subject_string = $subject->getSubject();
@@ -100,7 +106,35 @@ and open the template in the editor.
         }
         
 
+        ////////////////////////////
+        //Classes UNIT TESTS
+        ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING Classes UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
         
+        //construct empty class
+        $class = new Classes();
+        
+        //add a class
+        $class->addClass("Calculus I", "Math");
+        
+        unset($class);
+        
+        //get class from db
+        $class2 = new Classes("Calculus I");
+        
+        //get subject for class
+        $my_subject = $class2->getSubject();
+        printf("Calculus I subject is: %s\n", $my_subject);
+        
+        $orderedArray = $class2->getAZClassList();
+        printf("Ordered Classes: \n");
+        foreach($orderedArray as $class_val){
+            printf("%s\n", $class_val);
+        }
+        
+        //add class
         
         ////////////////////////////
         //Document UNIT TESTS
