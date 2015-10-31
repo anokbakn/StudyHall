@@ -18,13 +18,13 @@
         
         $data = $db_conn->query($get_data);
         if($data->num_rows > 0){
-            $values = $data->fetch_assoc();  
+            $values = $data->fetch_assoc();
             mysqli_close($db_conn);
             return $values;
         }
         else{
             mysqli_close($db_conn);
-            return $false;
+            return null;
         }
     }
     

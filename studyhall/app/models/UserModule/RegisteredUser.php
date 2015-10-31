@@ -33,24 +33,24 @@ class RegisteredUser {
             $this->new_user = false;
             //conn to database
             $db_vals = db_get("Registered_User", "*", "username", sprintf("%s", $username));
-            $this->username = $username;
-            $this->password = $db_vals['password'];
-            $this->email = $db_vals['email'];
-            $this->first_name = $db_vals['first_name'];
-            $this->last_name = $db_vals['last_name'];
-            $this->admin = $db_vals['admin'];
-            $this->blocked_date = $db_vals['blocked_date'];
-            $this->state = $db_vals['state'];
-            $this->city = $db_vals['city'];
-            $this->sign_up = $db_vals['sign_up'];
-            return;
+            if(isset($db_vals)){
+                $this->username = $username;
+                $this->password = $db_vals['password'];
+                $this->email = $db_vals['email'];
+                $this->first_name = $db_vals['first_name'];
+                $this->last_name = $db_vals['last_name'];
+                $this->admin = $db_vals['admin'];
+                $this->blocked_date = $db_vals['blocked_date'];
+                $this->state = $db_vals['state'];
+                $this->city = $db_vals['city'];
+                $this->sign_up = $db_vals['sign_up'];
+                return true;
+            }
+            else{
+                return false;
+            }
         }
     }
-    
-    function __autoload($class_name){
-        include $class_name . '.php';
-    }
-    
     //password should already be MD5, username should already be checked
     public function register($username,
                             $password,
@@ -93,21 +93,23 @@ class RegisteredUser {
     
     public function block(){
         db_set("Registered_User", "blocked_date=NOW()", "username", $this->username);
+        date_default_timezone_set("America/Chicago");
+        $this->blocked_date = date('m/d/Y G:i:s');
     }
     
     public function unblock(){
         db_set("Registered_User", "blocked_date=NULL", "username", $this->username);
+        $this->blocked_date = null;
     }
     
     public function isBlocked(){
-        $db_val = db_get("Registered_User", "blocked_date", "username", $this->username);
-        $sql_blocked_date = $db_val['blocked_date'];
+        $blocked_date = $this->blocked_date;
         //if val is null, they are unblocked
-        if($sql_blocked_date == NULL){
+        if(is_null($blocked_date)){
             return false;
         }
+        $php_blocked_date = strtotime($blocked_date);
         //if val is over 24 hours ago, they are unblocked
-        $php_blocked_date = strtotime($sql_blocked_date);
         if(time() - $php_blocked_date > (60*60*24)){
             return false;    
         }
@@ -155,6 +157,12 @@ class RegisteredUser {
     
     public function getSignUpDate(){
         return $this->sign_up;
+    }
+    
+    public function toString(){
+        $objectString = sprintf("RegisteredUser(username=%s, password=%s, email=%s, first_name=%s, last_name=%s, admin=%d, blocked_date=%s, state=%s, city=%s, sign_up=%s\n", $this->username, $this->password, $this->email, $this->first_name, $this->last_name, $this->admin, $this->blocked_date, $this->state, $this->city, $this->sign_up);
+        return $objectString;
+        
     }
         
         
