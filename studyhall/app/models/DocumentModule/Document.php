@@ -29,7 +29,7 @@ class Document{
         else {
             $this->new_doc = false;
             //conn to database
-            $db_vals = db_get("Document", "*", "doc_id", sprintf("'%d'", $doc_id));
+            $db_vals = db_get("Document", "*", "doc_id", sprintf("%d", $doc_id));
             $this->doc_id = $doc_id;
             $this->username = $db_vals['username'];
             $this->class_name = $db_vals['class_name'];
@@ -58,9 +58,46 @@ class Document{
         while(value_exists("Document", "doc_id", $doc_id)){
             $doc_id = get_rand_num();
         }
-        db_add("Document", sprintf("'%d', '%s', '%s', '%s', '%s', '%s', '%s', '0', '0', 'false'", $doc_id, $username, $class_name, $subject, $doc_name, $doc_type, $path_to_doc));
-        //check for error, return value to user based on if error or not
-    }
+        
+        //get unique doc_name/doc_path combination
+        $int = 1;
+        //get all documents where doc_name similar to $doc_name AND path_to_doc==$path_to_doc
+        $query_string = sprintf("SELECT * FROM `Document` WHERE doc_name LIKE '%s%%' AND path_to_doc='%s';", mysql_escape_string($doc_name), mysql_escape_string($path_to_doc));
+        $data = get_query($query_string);
+            if(isset($data)){
+                //put results into an array
+                $doc_list = array();
+                while( $row = $data->fetch_assoc()){
+                    array_push($doc_list, $row['doc_name']);
+                }
+                $int = 0;
+                $new_doc_name = $doc_name;
+                while($int < $data->num_rows){
+                    if(strcmp($doc_list[$int], $new_doc_name) == 0){
+                        $new_doc_name = sprintf("%s%d", $doc_name, $int);
+                        $int = 0;
+                    }
+                    else{
+                        $int++;
+                    }
+                }
+            }
+            
+        db_add("Document", sprintf("'%d', '%s', '%s', '%s', '%s', '%s', '%s', '0', '0', 'false'", $doc_id, $username, mysql_escape_string($class_name), $subject, mysql_escape_string($new_doc_name), $doc_type, mysql_escape_string($path_to_doc)));
+        
+        $this->doc_name = $new_doc_name;
+        $this->username = $username;
+        $this->class_name = $class_name;
+        $this->subject = $subject;
+        $this->doc_type = $doc_type;
+        $this->path_to_doc = $path_to_doc;
+        $this->doc_id = $doc_id;
+        $this->blocked = false;
+        $this->upvotes = 0;
+        $this->downvotes = 0;
+        
+        
+        }
     
     public function deleteDocument(){
         //check for error, return value to user based on if error or not

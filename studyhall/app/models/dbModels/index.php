@@ -139,7 +139,45 @@ and open the template in the editor.
         ////////////////////////////
         //Document UNIT TESTS
         ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING Classes UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
         
+        //construct empty document
+        $document = new Document();
+        
+        //add a document
+        $document->createDocument("kmassey", "Distributed Client Server Prog", "Computer Science", "Test 1 Study Guide", ".pdf", "fake/path");
+        
+        //delete document
+        $document->deleteDocument();
+
+        //get document info
+        $doc_id = $document->getDocID();
+        printf("Document's ID: %d\n", $doc_id);
+        
+        //new document from ID
+        $document2 = new Document(1083097730);
+        
+        //get name from doc
+        $doc_name = $document2->getDocName();
+        printf("Doc name retrieved: %s\n", $doc_name);
+        
+        //get current document scores
+        printf("Upvotes: %d\n", $document2->getUpvotes());
+        printf("Downvotes: %d\n", $document2->getDownvotes());
+        
+        //upvote
+        printf("Upvoting...\n");
+        $document->rate(1);
+        
+        //downvote
+        printf("Downvoting...\n");
+        $document->rate(0);
+        
+        //get new document scores
+        printf("New Upvotes: %d\n", $document2->getUpvotes());
+        printf("New Downvotes: %d\n", $document2->getDownvotes());
         
         ?>
     </body>

@@ -10,10 +10,10 @@
     function db_get($table, $items, $primary_key, $key_value){
         $db_conn = db_conn();
         if(strcmp($items, "*") == 0){
-            $get_data = sprintf("SELECT * FROM `%s` WHERE %s='%s';", $table, $primary_key, $key_value);//, $primary_key, $key_value);  
+            $get_data = sprintf("SELECT * FROM `%s` WHERE %s='%s';", $table, $primary_key, mysql_real_escape_string($key_value));//, $primary_key, $key_value);  
         }
         else{
-          $get_data = sprintf("SELECT %s FROM `%s` WHERE %s='%s';", $items, $table, $primary_key, $key_value);      
+          $get_data = sprintf("SELECT %s FROM `%s` WHERE %s='%s';", $items, $table, $primary_key, mysql_real_escape_string($key_value));      
         }
         
         $data = $db_conn->query($get_data);
@@ -30,7 +30,7 @@
     
     function db_set($table, $items, $primary_key, $key_value){
         $db_conn = db_conn();
-        $set_data = sprintf("UPDATE %s SET %s WHERE %s='%s';", $table, $items, $primary_key, $key_value);
+        $set_data = sprintf("UPDATE %s SET %s WHERE %s='%s';", $table, $items, $primary_key, mysql_real_escape_string($key_value));
         $data = $db_conn->query($set_data);
         mysqli_close($db_conn);
     }
@@ -44,7 +44,7 @@
     
     function db_delete($table, $primary_key, $key_value){
         $db_conn = db_conn();
-        $del_data = sprintf("DELETE FROM %s WHERE %s='%s';", $table, $primary_key, $key_value);
+        $del_data = sprintf("DELETE FROM %s WHERE %s='%s';", $table, $primary_key, mysql_real_escape_string($key_value));
         $db_conn->query($del_data);
         mysqli_close($db_conn);
     }
@@ -57,9 +57,21 @@
         return $data;   //can return numberous values
     }
     
+    function get_query($query){
+        $db_conn = db_conn();
+        $data = $db_conn->query($query);
+        mysqli_close($db_conn);
+        if( $data !== false){
+            return $data;
+        }
+        else {
+            return null;
+        }
+    }
+    
     function value_exists($table, $key, $value){
         $db_conn = db_conn();
-        $query_string = sprintf("SELECT * from %s WHERE %s='%s';", $table, $key, $value);
+        $query_string = sprintf("SELECT * from %s WHERE %s='%s';", $table, $key, mysql_real_escape_string($value));
         $query = mysqli_query($db_conn, $query_string);
         mysqli_close($db_conn);
         if(mysqli_num_rows($query) > 0){
