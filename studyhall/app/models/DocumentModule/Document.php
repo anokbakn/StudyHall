@@ -109,24 +109,24 @@ class Document{
         //downvotes
         if($updown == 0){
             $new_val = $this->downvotes + 1;
-            db_set("Document", sprintf("downvotes='%d'", $new_val), "doc_id", $this->doc_id);
-            $this->downvotes = $new_val;    
+            db_set("Document", sprintf("downvotes=%d", $new_val), "doc_id", $this->doc_id);
+            $this->downvotes = $new_val;
         }
         //upvotes
         if($updown == 1){
             $new_val = $this->upvotes + 1;
-            db_set("Document", sprintf("upvotes='%d'", $new_val), "doc_id", $this->doc_id);
+            db_set("Document", sprintf("upvotes=%d", $new_val), "doc_id", $this->doc_id);
             $this->upvotes = $new_val;
         }
     }
     
     public function block(){
-        db_set("Document", "blocked='true'", "doc_id", $this->doc_id);
+        db_set("Document", "blocked=true", "doc_id", $this->doc_id);
         $this->blocked = true;
     }
     
     public function unblock(){
-        db_set("Document", "blocked='false'", "doc_id", $this->doc_id);
+        db_set("Document", "blocked=false", "doc_id", $this->doc_id);
         $this->blocked = false;
     }
     

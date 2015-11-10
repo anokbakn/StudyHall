@@ -169,15 +169,30 @@ and open the template in the editor.
         
         //upvote
         printf("Upvoting...\n");
-        $document->rate(1);
+        $document2->rate(1);
         
         //downvote
         printf("Downvoting...\n");
-        $document->rate(0);
+        $document2->rate(0);
         
         //get new document scores
         printf("New Upvotes: %d\n", $document2->getUpvotes());
         printf("New Downvotes: %d\n", $document2->getDownvotes());
+        
+        //block document
+        printf("Blocking %s\n", $doc_name);
+        $document2->block();
+        $isBlocked = $document2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("%s is blocked:  %s\n", $doc_name, $bool_str);
+        
+        
+        //unblock document
+        printf("Unblocking %s\n", $doc_name);
+        $document2->unblock();
+        $isBlocked = $document2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("%s is blocked: %s\n", $doc_name, $bool_str);
         
         ?>
     </body>
