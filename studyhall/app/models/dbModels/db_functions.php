@@ -49,9 +49,9 @@
         mysqli_close($db_conn);
     }
     
-    function db_get_ordered($table, $items, $order_column){
+    function db_get_ordered($table, $items, $order_column, $primary_key, $key_value){
         $db_conn = db_conn();
-        $get_data = sprintf("SELECT %s FROM %s ORDER BY %s;", $items, $table, $order_column);
+        $get_data = sprintf("SELECT %s FROM %s WHERE %s='%s' ORDER BY %s;", $items, $table, $primary_key, $key_value, $order_column);
         $data = $db_conn->query($get_data);
         mysqli_close($db_conn);
         return $data;   //can return numberous values
@@ -61,7 +61,8 @@
         $db_conn = db_conn();
         $data = $db_conn->query($query);
         mysqli_close($db_conn);
-        if( $data !== false){
+        if( mysqli_num_rows($data) > 0){
+            printf("I make it here");
             return $data;
         }
         else {

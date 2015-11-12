@@ -15,7 +15,6 @@ class Classes {
     //put your code here
     private $class_name;
     private $subject;
-    
     private $new_class;
     
     //constructor
@@ -47,12 +46,21 @@ class Classes {
     }
     
     public function getAZClassList(){
-        $data = db_get_ordered("Classes", "*", "class_name");
+        $data = db_get_ordered("Classes", "*", "class_name", "1", 1);
         $AZClassArray = array();
         while($row = $data->fetch_assoc()){
             array_push($AZClassArray, $row['class_name']);
         } 
         return $AZClassArray;
+    }
+    
+    public function getClassBySubject($subject){
+        $data = db_get_ordered("Classes", "*", "class_name", "subject", $subject);
+        $classArray = array();
+        while($row = $data->fetch_assoc()){
+            array_push($classArray, $row['class_name']);
+        }
+        return $classArray;
     }
     
     public function getClassName(){

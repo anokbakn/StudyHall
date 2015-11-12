@@ -14,9 +14,9 @@
 class Comment {
     //put your code here
     private $comment_id;
-    private $comment_body;
     private $doc_id;
     private $username;
+    private $comment_body;
     private $blocked;
     
     private $new_comment;
@@ -47,13 +47,21 @@ class Comment {
     
     public function createComment($comment_body, 
                                     $doc_id,
-                                    $username){
+                                    $username,
+                                    $comment_body){
         $comment_id = db_functions.get_rand_num();
         while(db_functions.value_exists("Comment", "comment_id", $comment_id)){
             $comment_id = get_rand_num();
         }
         
-        db_add("Comment", sprintf("'%d', '%s', '%d', '%s', false"));
+        db_add("Comment", sprintf("'%d', '%d', '%s', '%s', 'false'", $comment_id, $doc_id, $username, $comment_body));
+        
+        $this->comment_id = $comment_id;
+        $this->doc_id = $doc_id;
+        $this->username = $username;
+        $this->comment_body = $comment_body;
+        $this->blocked = false;
+        
     }
     
     public function deleteComment(){
@@ -65,6 +73,11 @@ class Comment {
     public function block(){
         db_set("Comment", "blocked='true'", "comment_id", $this->comment_id);
         $this->blocked = true;
+    }
+    
+    public function unblock(){
+        db_set("Comment", "blocked=false", "comment_id", $this->comment_id);
+        $this->blocked = false;
     }
     
     public function isBlocked(){

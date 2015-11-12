@@ -52,6 +52,7 @@ CREATE TABLE Forum_Post(
 post_id int not null primary key,
 topic_id varchar(32) not null,
 username varchar(30) not null,
+post_content varchar(750) not null,
 blocked bool,
 foreign key (username) references Registered_User(username) on delete cascade,
 foreign key (topic_id) references Forum_Topic(topic_id) on delete cascade
@@ -61,6 +62,7 @@ CREATE TABLE Comment(
 comment_id int not null primary key,
 document_id int not null,
 username varchar(30) not null,
+comment_body varchar(500) not null,
 blocked bool,
 foreign key (username) references Registered_User(username) on delete cascade,
 foreign key (document_id) references Document(doc_id) on delete cascade

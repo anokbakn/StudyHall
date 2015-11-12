@@ -23,7 +23,7 @@ class Subject {
         $this->subject = $subject;
     }
     public function getAZSubjects(){
-        $data = db_get_ordered("Subject", "*", "subject");
+        $data = db_get_ordered("Subject", "*", "subject", "1", 1);
         $AZSubjectArray = array();
         while($row = $data->fetch_assoc()){
             array_push($AZSubjectArray, $row['subject']);

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+use DocumentsManager;
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -128,19 +129,27 @@ and open the template in the editor.
         $my_subject = $class2->getSubject();
         printf("Calculus I subject is: %s\n", $my_subject);
         
+        //get A to Z class list
         $orderedArray = $class2->getAZClassList();
         printf("Ordered Classes: \n");
         foreach($orderedArray as $class_val){
             printf("%s\n", $class_val);
         }
         
-        //add class
+        //get A to Z class list for specific subject
+        $orderedArray = $class2->getClassBySubject("Math");
+        printf("Ordered Classes by Subject - Math: \n");
+        foreach($orderedArray as $class_val){
+            printf("%s\n", $class_val);
+        }
+        
+
         
         ////////////////////////////
         //Document UNIT TESTS
         ////////////////////////////
         printf("/////////////////////////////////\n");
-        printf("STARTING Classes UNIT TESTS\n");
+        printf("STARTING Document UNIT TESTS\n");
         printf("/////////////////////////////////\n");
         
         //construct empty document
@@ -193,6 +202,45 @@ and open the template in the editor.
         $isBlocked = $document2->isBlocked();
         $bool_str = $isBlocked ? "true" : "false";
         printf("%s is blocked: %s\n", $doc_name, $bool_str);
+        
+        
+        ////////////////////////////
+        //DocumentManager UNIT TESTS
+        ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING DocumentManager UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
+        
+        //show all documents
+        printf("Show all documents\n");
+        $documents = DocumentsManager::showDocuments();
+        while($row = $documents->fetch_assoc()){
+            printf("%s\n", $row['doc_name']);
+        }
+        
+        //search doc by class
+        printf("Show all documents by class - Distributed Client Server Prog: \n");
+        $documents = DocumentsManager::searchDocByClass("Distributed Client Server Prog");
+        while($row = $documents->fetch_assoc()){
+            printf("%s\n", $row['doc_name']);
+        }
+        
+        //search doc by subject
+        printf("Show all documents by subject - Computer Science: \n");
+        $documents = DocumentsManager::searchDocBySubject("Computer Science");
+        while($row = $documents->fetch_assoc()){
+            printf("%s\n", $row['doc_name']);
+        }
+       
+        ////////////////////////////
+        //Comment UNIT TESTS
+        ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING Comment UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
+        
+        
+        
         
         ?>
     </body>
