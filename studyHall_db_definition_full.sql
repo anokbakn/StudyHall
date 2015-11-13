@@ -22,7 +22,7 @@ foreign key (subject) references Subject(subject)
 );
 
 CREATE TABLE Document(
-doc_id int primary key,
+doc_id int primary key AUTO_INCREMENT,
 username varchar(30) not null,
 class_name varchar(30) not null,
 subject varchar(30) not null,
