@@ -59,7 +59,7 @@ foreign key (topic_id) references Forum_Topic(topic_id) on delete cascade
 );
 
 CREATE TABLE Comment(
-comment_id int not null primary key,
+comment_id int not null primary key AUTO_INCREMENT,
 document_id int not null,
 username varchar(30) not null,
 comment_body varchar(500) not null,
