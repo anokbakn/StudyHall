@@ -11,6 +11,9 @@
  *
  * @author Kristen
  */
+
+include_once "./db_functions.php";
+
 class Comment {
     //put your code here
     private $comment_id;
@@ -31,7 +34,7 @@ class Comment {
         else {
             $this->new_comment = false;
             //conn to database
-            $db_vals = db_functions.db_get("Comment", "*", "comment_id", sprintf("'%d'", $comment_id));
+            $db_vals = db_get("Comment", "*", "comment_id", sprintf("'%d'", $comment_id));
             $this->comment_id = $comment_id;
             $this->comment_body = $db_vals['comment_body'];
             $this->doc_id = $db_vals['doc_id'];
@@ -45,16 +48,15 @@ class Comment {
         include $class_name . '.php';
     }
     
-    public function createComment($comment_body, 
-                                    $doc_id,
+    public function createComment($doc_id,
                                     $username,
                                     $comment_body){
-        $comment_id = db_functions.get_rand_num();
-        while(db_functions.value_exists("Comment", "comment_id", $comment_id)){
+        $comment_id = get_rand_num();
+        while(value_exists("Comment", "comment_id", $comment_id)){
             $comment_id = get_rand_num();
         }
         
-        db_add("Comment", sprintf("'%d', '%d', '%s', '%s', 'false'", $comment_id, $doc_id, $username, $comment_body));
+        db_add("Comment", sprintf("'%d', '%d', '%s', '%s', 'false'", $comment_id, $doc_id, $username, mysql_escape_string($comment_body)));
         
         $this->comment_id = $comment_id;
         $this->doc_id = $doc_id;

@@ -239,6 +239,23 @@ and open the template in the editor.
         printf("STARTING Comment UNIT TESTS\n");
         printf("/////////////////////////////////\n");
         
+        //construct empty comment
+        $comment = new Comment();
+        
+        //add comment
+        $comment->createComment(1083097730, "kmassey", "I'm not sure I like this studyguide.");
+        
+        
+        //delete comment
+        
+        //fetch existing comment
+        
+        //fetch body of existing comment
+        
+        //block comment
+        
+        //unblock comment
+        
         
         
         

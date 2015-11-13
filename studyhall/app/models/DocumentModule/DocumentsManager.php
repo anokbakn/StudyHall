@@ -12,32 +12,26 @@ class DocumentsManager{
     }
 
     public function showDocuments(){
-        $docList = array();
         $results = get_query("SELECT * FROM `Document`;");
-        while($row = $results->fetch_assoc()){
-            array_push($docList, $row);
-        }
-        return $docList;
+        return $results;
     }
     
     public function searchDocByClass($class_name){
-        $docList = array();
         $query = sprintf("SELECT * FROM Document WHERE class_name='%s';", $class_name);
         $results = get_query($query);
-        while($result = $results->fetch_assoc()){
-            array_push($docList, $result);
-        }
-        return $docList;
+        return $results;
     }
     
     public function searchDocBySubject($subject){
-        $docList = array();
         $query = sprintf("SELECT * FROM Document WHERE subject='%s';", $subject);
         $results = get_query($query);
-        while($result = $results->fetch_assoc()){
-            array_push($docList, $result);
-        }
-        return $docList;
+        return $results;
+    }
+    
+    public function searchCommentByDoc($doc_id){
+        $query = sprintf("SELECT * FROM Comment WHERE doc_id='%s';", $doc_id);
+        $results = get_query($query);
+        return $results;
     }
 
 

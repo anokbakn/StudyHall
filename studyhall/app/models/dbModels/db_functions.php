@@ -59,10 +59,10 @@
     
     function get_query($query){
         $db_conn = db_conn();
+        $rowArray = array();
         $data = $db_conn->query($query);
         mysqli_close($db_conn);
-        if( mysqli_num_rows($data) > 0){
-            printf("I make it here");
+        if(mysqli_num_rows($data) > 0){
             return $data;
         }
         else {
