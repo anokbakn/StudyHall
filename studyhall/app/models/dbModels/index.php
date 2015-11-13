@@ -41,24 +41,24 @@ and open the template in the editor.
         $user2 = new RegisteredUser("armand5");
         
         //login successful (print true)
-        $loginSuccess = $user2->login("armand", "abc123");
+        $loginSuccess = $user2->login("armand5", "abc123");
         if(is_null($loginSuccess)){
             $pass_fail = "fail";
         }
         else {
             $pass_fail = $loginSuccess;
         }
-        printf("User %s logged in successfully: %s\n", "armand", $pass_fail);
+        printf("User %s logged in successfully: %s\n", "armand5", $pass_fail);
         
         //login unsuccessful (print false)
-        $loginSuccess2 = $user2->login("armand", "abc12"); 
+        $loginSuccess2 = $user2->login("armand5", "abc12"); 
         if(is_null($loginSuccess2)){
             $pass_fail = "fail";
         }
         else {
             $pass_fail = $loginSuccess2;
         }
-        printf("User %s logged in successfully: %s\n", "armand", $pass_fail);
+        printf("User %s logged in successfully: %s\n", "armand5", $pass_fail);
         
         
         //delete user
