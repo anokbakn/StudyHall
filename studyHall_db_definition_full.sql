@@ -49,7 +49,7 @@ foreign key (username) references Registered_User(username) on delete cascade
 
 
 CREATE TABLE Forum_Post(
-post_id int not null primary key,
+post_id int not null primary key AUTO_INCREMENT,
 topic_id varchar(32) not null,
 username varchar(30) not null,
 post_content varchar(750) not null,
