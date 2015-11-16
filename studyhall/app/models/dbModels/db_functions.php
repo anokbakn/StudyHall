@@ -24,7 +24,7 @@
         }
         else{
             mysqli_close($db_conn);
-            return null;
+            return false;
         }
     }
     

@@ -61,7 +61,7 @@ class ForumTopic {
     
     function deleteForum(){
         //check for error, return value to user based on if error or not
-        db_delete("Forum_Topic", "topic_id", $this->doc_id);
+        db_delete("Forum_Topic", "topic_id", $this->topic_id);
         return;
     }
     

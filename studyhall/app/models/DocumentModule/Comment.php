@@ -34,19 +34,20 @@ class Comment {
         else {
             $this->new_comment = false;
             //conn to database
-            $db_vals = db_get("Comment", "*", "comment_id", sprintf("'%d'", $comment_id));
+            $db_vals = db_get("Comment", "*", "comment_id", sprintf("%d", $comment_id));
             $this->comment_id = $comment_id;
             $this->comment_body = $db_vals['comment_body'];
-            $this->doc_id = $db_vals['doc_id'];
+            $this->doc_id = $db_vals['document_id'];
             $this->username = $db_vals['username'];
             $this->blocked = $db_vals['blocked'];
             return;
         }  
     }
     
-    function __autoload($class_name){
-        include $class_name . '.php';
+    function __destruct(){
+        return;
     }
+
     
     public function createComment($doc_id,
                                     $username,
@@ -73,7 +74,7 @@ class Comment {
     }
     
     public function block(){
-        db_set("Comment", "blocked='true'", "comment_id", $this->comment_id);
+        db_set("Comment", "blocked=1", "comment_id", $this->comment_id);
         $this->blocked = true;
     }
     

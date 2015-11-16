@@ -17,10 +17,7 @@ class ForumManager {
     public function showTopics(){
         $topicList = array();
         $results = get_query("SELECT * FROM `Forum_Topic`;");
-        while($row = $results->fetch_assoc()){
-            array_push($topicList, $row);
-        }
-        return $topicList;
+        return $results;
     }
     
     /*

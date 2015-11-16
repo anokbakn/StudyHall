@@ -243,19 +243,111 @@ and open the template in the editor.
         $comment = new Comment();
         
         //add comment
-        $comment->createComment(1083097730, "kmassey", "I'm not sure I like this studyguide.");
-        
+        $comment->createComment(1083097730, "kmassey", "I love this studyguide.");
         
         //delete comment
+        $comment->deleteComment();
         
         //fetch existing comment
+        $comment2 = new Comment(255494673);
         
         //fetch body of existing comment
+        $comment_body = $comment2->getCommentBody();
+        printf("Fetched Comment: %s\n", $comment_body);
         
         //block comment
+        printf("Blocking comment %d\n", 255494673);
+        $comment2->block();
+        $isBlocked = $comment2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("Comment %d is blocked:  %s\n", 255494673, $bool_str);
+        
         
         //unblock comment
+        printf("Unblocking comment %d\n", 255494673);
+        $comment2->unblock();
+        $isBlocked = $comment2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("Comment %d is blocked: %s\n", 255494673, $bool_str);
         
+        
+        ////////////////////////////
+        //ForumTopic UNIT TESTS
+        ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING ForumTopic UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
+        
+        //construct empty forum topic
+        $forumTopic = new ForumTopic();
+        
+        //add topic
+        $forumTopic->createForum("kmassey", "Dummy Topic", "Dummy question");
+        
+        //delete topic
+        $forumTopic->deleteForum();
+        
+        //fetch existing forumTopic
+        $forumTopic2 = new ForumTopic(1895578464);
+        
+        //fetch description of existing forum Topic
+        $topic_description = $forumTopic2->getTopicDescription();
+        printf("Fetched Topic description: %s\n", $topic_description);
+        
+
+        //block forum topic
+        printf("Blocking topic %d\n", 1895578464);
+        $forumTopic2->block();
+        $isBlocked = $forumTopic2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("Forum Topic %d is blocked:  %s\n", 1895578464, $bool_str);
+        
+        
+        //unblock forum topic
+        printf("Unblocking topic %d\n", 1895578464);
+        $forumTopic2->unblock();
+        $isBlocked = $forumTopic2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("Forum Topic %d is blocked: %s\n", 1895578464, $bool_str);
+        
+        ////////////////////////////
+        //ForumPost UNIT TESTS
+        ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING ForumPost UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
+        
+        //construct empty forum post
+        $forumPost = new ForumPost();
+        
+        //add post
+        $forumPost->createPost(1895578464, "kmassey", "This is a forum post.");
+        
+        //delete post
+        $forumPost->deletePost();
+        
+        //fetch existing forumPost
+        $forumPost2 = new ForumPost(1667447439);
+        
+        //fetch content of existing forum post
+        $post_content = $forumPost2->getPostContent();
+        printf("Fetched Post: %s\n", $post_content);
+        
+        
+        //block forum post
+        printf("Blocking post %d\n", 1667447439);
+        $forumPost2->block();
+        $isBlocked = $forumPost2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("Forum Post %d is blocked:  %s\n", 1667447439, $bool_str);
+        
+        
+        //unblock forum post
+        printf("Unblocking post %d\n", 1667447439);
+        $forumPost2->unblock();
+        $isBlocked = $forumPost2->isBlocked();
+        $bool_str = $isBlocked ? "true" : "false";
+        printf("Forum Post %d is blocked: %s\n", 1667447439, $bool_str);
         
         
         
