@@ -20,26 +20,10 @@ class ForumManager {
         return $results;
     }
     
-    /*
-    public function searchTopicByClass($class_name){
-        $topicList = array();
-        $query = sprintf("SELECT * FROM Forum_Topic WHERE class_name='%s';", $class_name);
+    public function getPostsByTopic($topic_id){
+        $postList = array();
+        $query = sprintf("SELECT * FROM Forum_Post WHERE topic_id=%d;", $topic_id);
         $results = get_query($query);
-        while($result = $results->fetch_assoc()){
-            array_push($topicList, $result);
-        }
-        return $topicList;
+        return $results;
     }
-    
-    
-    public function searchTopicBySubject($subject){
-        $topicList = array();
-        $query = sprintf("SELECT * FROM Forum_Topic WHERE subject='%s';", $subject);
-        $results = get_query($query);
-        while($result = $results->fetch_assoc()){
-            array_push($topicList, $result);
-        }
-        return $topicList;
-    }
-    */
 }

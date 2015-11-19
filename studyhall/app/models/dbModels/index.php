@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 use DocumentsManager;
+use ForumManager;
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -356,8 +357,27 @@ and open the template in the editor.
         $bool_str = $isBlocked ? "true" : "false";
         printf("Forum Post %d is blocked: %s\n", 1667447439, $bool_str);
         
+        ////////////////////////////
+        //DocumentManager UNIT TESTS
+        ////////////////////////////
+        printf("/////////////////////////////////\n");
+        printf("STARTING ForumManager UNIT TESTS\n");
+        printf("/////////////////////////////////\n");
         
+        //show all topics
+        printf("Show all forum topics:\n");
+        $topics = ForumManager::showTopics();
+        while($row = $topics->fetch_assoc()){
+            printf("%s\n", $row['topic_name']);
+        }
         
+        //search posts by topic
+        $topic_id = 1895578464;
+        printf("Show all forum posts for topic %d\n", $topic_id);
+        $posts = ForumManager::getPostsByTopic($topic_id);
+        while ($row = $posts->fetch_assoc()){
+            printf("%s\n", $row['post_content']);
+        }
         ?>
     </body>
 </html>
