@@ -59,15 +59,17 @@
     
     function get_query($query){
         $db_conn = db_conn();
-        $rowArray = array();
         $data = $db_conn->query($query);
         mysqli_close($db_conn);
-        if(mysqli_num_rows($data) > 0){
-            return $data;
+        if(is_a($data, "mysqli_result")){
+            if($data->num_rows > 0){
+                return $data;
+            }
+            else {
+                return null;
+            }
         }
-        else {
-            return null;
-        }
+        
     }
     
     function value_exists($table, $key, $value){
@@ -75,7 +77,7 @@
         $query_string = sprintf("SELECT * from %s WHERE %s='%s';", $table, $key, mysql_real_escape_string($value));
         $query = mysqli_query($db_conn, $query_string);
         mysqli_close($db_conn);
-        if(mysqli_num_rows($query) > 0){
+        if($query->num_rows > 0){
             return true;
         }
         else{

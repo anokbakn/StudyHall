@@ -29,7 +29,7 @@ class DocumentsManager{
     }
     
     public function searchCommentByDoc($doc_id){
-        $query = sprintf("SELECT * FROM Comment WHERE doc_id='%s';", $doc_id);
+        $query = sprintf("SELECT * FROM Comment WHERE document_id=%d;", $doc_id);
         $results = get_query($query);
         return $results;
     }

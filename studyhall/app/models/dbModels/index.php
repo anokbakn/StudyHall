@@ -231,6 +231,13 @@ and open the template in the editor.
         while($row = $documents->fetch_assoc()){
             printf("%s\n", $row['doc_name']);
         }
+        
+        //search comment by doc
+        printf("Show all comments by document - Test 1 Study Guide: \n");
+        $comments = DocumentsManager::searchCommentByDoc(1083097730);
+        while($row = $comments->fetch_assoc()){
+            printf("%s\n", $row['comment_body']);
+        }
        
         ////////////////////////////
         //Comment UNIT TESTS
