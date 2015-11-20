@@ -33,6 +33,11 @@ class DocumentsManager{
         $results = get_query($query);
         return $results;
     }
+    
+    public function showUsers(){
+        $results = get_query("SELECT * FROM `Registered_User`;");
+        return $results;
+    }
 
 
 }

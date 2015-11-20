@@ -239,6 +239,13 @@ and open the template in the editor.
         while($row = $comments->fetch_assoc()){
             printf("%s\n", $row['comment_body']);
         }
+        
+        //show all users
+        printf("Show all users:\n");
+        $users = DocumentsManager::showUsers();
+        while($row = $users->fetch_assoc()){
+            printf("%s\n", $row['username']);
+        }
        
         ////////////////////////////
         //Comment UNIT TESTS
