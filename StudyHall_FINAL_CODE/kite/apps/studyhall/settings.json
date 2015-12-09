@@ -1,0 +1,15 @@
+{
+	"APP":{
+	"NAME":"SIMPLE-MATH",
+	"DESC":"This is a simple mathematics application which performs addition,subtraction,multiplication and division",
+	"AUTHOR":"Krishna Teja",
+	"EMAIL":"shaadomanthra@yahoo.com",
+	"WEBSITE":"http://www.packetcode.com"
+	},
+	"DB":{
+	"CREATE":"CREATE TABLE maths( id INT NOT NULL AUTO_INCREMENT, operation VARCHAR(20) , a INT , b  INT,result INT,time_stamp   datetime , primary key ( id ));"
+	}
+
+	
+	
+}

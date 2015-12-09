@@ -1,0 +1,3 @@
+<p>
+	YOU ARE NOW REGISTERED!!!
+</p>
